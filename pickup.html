@@ -1,0 +1,71 @@
+<!-- simple-todos.html -->
+<head>
+  <title>PickUP</title>
+</head>
+
+<template name="home">
+  <body>
+    <div class="container">
+      <header>
+        <h1>PickUP ({{incompleteCount}})</h1>
+        <label class="hide-completed">
+          <input type="checkbox" checked="{{hideCompleted}}" />
+          <a href="{{pathFor 'about'}}">About</a>
+          Hide Completed Pevents
+        </label>
+        {{> loginButtons}}
+
+        {{#if currentUser}}
+          {{> newPeventForm}}
+        {{/if}}
+      </header>
+
+      <ul>
+        {{#each pevents}}
+          {{> pevent}}
+        {{/each}}
+      </ul>
+    </div>
+  </body>
+</template>
+
+<template name="pevent">
+  <li class="{{#if checked}}checked{{/if}}">
+    {{#if currentUser}}
+    <button class="delete">&times;</button>
+    <button class="interest">&check;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    {{/if}}
+
+    <span class="pevent {{selectedClass}}">{{text}} - {{desc}} - {{interested}}</span>
+  </li>
+</template>
+
+<template name="newPeventForm">
+  <form>
+    <input type="text" name="text" placeholder="Event" />
+    <input type="text" name="desc" placeholder="Description" />
+    <input type="text" name="loc" placeholder="Location" />
+    <input type="text" name="cost" placeholder="Cost" />
+    <input type="submit" value="+"/>
+
+  </form>
+</template>
+
+<template name="about">
+  <head>
+    <title>About</title>
+  </head>
+  <div class="container">
+    <header>
+      <h2>About</h2>
+      <label class="hide-completed">
+        <a href="{{pathFor 'home'}}">Home</a>
+      </label>
+    </header>
+    <body>
+      PickUP is a place where you can schedule meetups with people interested in the things you are<br>
+      Just make an account, and join whatever interests you
+    </body>
+  </div>
+</template>
